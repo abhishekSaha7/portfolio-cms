@@ -2,7 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { Menu, X } from "lucide-react";
+import { Code2, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -46,10 +46,15 @@ export function Navbar({ name }: NavbarProps) {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
+          className="group flex items-center gap-2.5 text-lg font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
         >
-          {name.split(" ")[0]}
-          <span className="text-primary">.</span>
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shrink-0">
+            <Code2 className="h-4 w-4" />
+          </span>
+          <span>
+            {name.split(" ")[0]}
+            <span className="text-primary">.</span>
+          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-4">
@@ -71,12 +76,12 @@ export function Navbar({ name }: NavbarProps) {
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-foreground hover:text-primary hover:border-primary/40 transition-colors shadow-sm"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </nav>
@@ -88,15 +93,15 @@ export function Navbar({ name }: NavbarProps) {
             animate={{ opacity: 1, height: "auto" }}
             exit={shouldReduceMotion ? undefined : { opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden glass border-b border-border/50 overflow-hidden"
+            className="md:hidden bg-card border-b border-border shadow-xl overflow-hidden"
           >
-            <ul className="flex flex-col px-4 py-4 gap-1">
+            <ul className="flex flex-col px-4 py-3 gap-1">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                    className="block px-4 py-3 text-sm font-medium text-foreground hover:text-primary hover:bg-muted/10 transition-colors rounded-lg"
                   >
                     {link.label}
                   </Link>
